@@ -70,7 +70,22 @@ class LogParser:
         return True
 
     def __addEntryInLogsDictionary(self, line):
-        #TODO
+        self.logsDictionary.append(line)
 
     def __updateLogsStatistics(self, line):
-        #TODO
+        """
+            Simple incrementation of statistic variables used for computing a
+            fast report of the log content.
+        """
+        sizeOfBlock = int(line[1], 16)
+        if line[2] == '?':
+            self.logsStatistics['nontried'] += sizeOfBlock
+        elif line[2] == '+':
+            self.logsStatistics['rescued'] += sizeOfBlock
+        elif line[2] == '*':
+            self.logsStatistics['nontrimmed'] += sizeOfBlock
+        elif line[2] == '/':
+            self.logsStatistics['nonsplit'] += sizeOfBlock
+        elif line[2] == '-':
+            self.logsStatistics['bad'] += sizeOfBlock
+        self.logsStatistics['total'] += sizeOfBlock
