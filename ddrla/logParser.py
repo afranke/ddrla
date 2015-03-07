@@ -52,4 +52,25 @@ class LogParser:
             self.__processFileLogLine(line)
 
     def __processFileLogLine(self, line):
+        if self.__theLineIsASegmentResult(line):
+            self.__addEntryInLogsDictionary(line)
+            self.__updateLogsStatistics(line)
+
+    def __theLineIsASegmentResult(self, lineRepresentation):
+        """
+            Valid log lines have the pattern:
+            offset <space> lenght <space> status
+            Invalid ones are comments (that start by #), and the current position
+            line (that has only two words).
+        """
+        if len(lineRepresentation) != 3:
+            return False
+        if lineRepresentation[0] == '#':
+            return False
+        return True
+
+    def __addEntryInLogsDictionary(self, line):
+        #TODO
+
+    def __updateLogsStatistics(self, line):
         #TODO
