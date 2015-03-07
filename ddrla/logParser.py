@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with ddrla.  If not, see <http://www.gnu.org/licenses/>.
 
+import re
+
 class LogParser:
     """
         Parse output logs from ddrescue command for being processed by
@@ -40,5 +42,14 @@ class LogParser:
         self.logsStatistics['total'] = 0
 
     def __processLogParsing(self, file):
-        #TODO
+        """
+            Format each line in an array splitted by words, and manage the parse.
+        """
+        logFile = open(file, 'r')
+        for line in logFile:
+            line = re.sub(' +', ' ', line);
+            line = line.rstrip().split(' ')
+            self.__processFileLogLine(line)
 
+    def __processFileLogLine(self, line):
+        #TODO
