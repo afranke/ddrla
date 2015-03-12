@@ -13,14 +13,18 @@
 # You should have received a copy of the GNU General Public License
 # along with ddrla.  If not, see <http://www.gnu.org/licenses/>.
 
+from os.path import dirname, abspath, join
 import unittest
-import tempfile
+
+from ddrla.logParser import LogParser
 
 class TestLogParser(unittest.TestCase):
 
+    package = dirname(dirname(abspath(__file__)))
+
     def setUp(self):
-        self.testFile = tempfile.TemporaryFile(prefix='tmp')
-        self.__fillTestFile()
+        testFile = join(self.package, 'data', 'ddrescue_sample.log')
+	self.parser = LogParser(testFile)
 
     def __fillTestFile(self):
         self.testFile.write(b"# This is a comment\n")
@@ -80,14 +84,13 @@ class TestLogParser(unittest.TestCase):
         self.testFile.write(b"0x692D56000  0x00132000  +\n")
         self.testFile.seek(0)
 
-    def tearDown(self):
-        self.testFile.close()
 
     def testGetLogsDictionnary(self):
-        #TODO
+        log_dict = self.parser.getLogsDictionnary()
+        self.assertEqual(len(log_dict), 30204)
+        map(lambda e: self.assertTrue(len(e) == 3), log_dict)
+        self.assertEqual(log_dict[0], ['0x00000000', '0xC2629000', '+'])
+        self.assertEqual(log_dict[-1], ['0xE8D4A51000', '0x0C365000', '?'])
 
     def testGetLogsStatistics(self):
-        #TODO
-
-if __name__ == '__main__':
-    unittest.main()
+	    log_stat = self.parser.getLogsStatistics()
