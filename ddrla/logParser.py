@@ -22,16 +22,21 @@ class LogParser:
     """
     logsDictionary = []
     logsStatistics = {}
+    currentStatus = []
 
     def __init__(self, file):
-        self.__initLogsStatistics();
+        self.currentStatus = None
+        self.__initLogsStatistics()
         self.__processLogParsing(file)
 
     def getLogsDictionnary(self):
-        return self.logsDictionary;
+        return self.logsDictionary
 
     def getLogsStatistics(self):
-        return self.logsStatistics;
+        return self.logsStatistics
+
+    def getCurrentStatus(self):
+        return self.currentStatus
 
     def __initLogsStatistics(self):
         self.logsStatistics['nontried'] = 0
@@ -55,6 +60,9 @@ class LogParser:
         if self.__theLineIsASegmentResult(line):
             self.__addEntryInLogsDictionary(line)
             self.__updateLogsStatistics(line)
+        elif self.currentStatus is None \
+          and self.__theLineIsTheCurrentStatus(line):
+            self.currentStatus = line
 
     def __theLineIsASegmentResult(self, lineRepresentation):
         """
@@ -64,6 +72,18 @@ class LogParser:
             line (that has only two words).
         """
         if len(lineRepresentation) != 3:
+            return False
+        if lineRepresentation[0] == '#':
+            return False
+        return True
+
+    def __theLineIsTheCurrentStatus(self, lineRepresentation):
+        """
+            The status line has the pattern:
+            offset <space> lenght
+            and should only be present one in the file.
+        """
+        if len(lineRepresentation) != 2:
             return False
         if lineRepresentation[0] == '#':
             return False
