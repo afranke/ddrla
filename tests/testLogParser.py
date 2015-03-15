@@ -36,3 +36,12 @@ class TestLogParser(unittest.TestCase):
 
     def testGetLogsStatistics(self):
         log_stat = self.parser.getLogsStatistics()
+        self.assertEqual(log_stat, {
+          'total': 1000204886016,
+          'rescued': 886719395136,
+          'nontried': 113238912320,
+          'bad': 639744,
+          'nontrimmed': 244389504,
+          'nonsplit': 1549312
+        })
+
