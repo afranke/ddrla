@@ -45,3 +45,6 @@ class TestLogParser(unittest.TestCase):
           'nonsplit': 1549312
         })
 
+    def testGetCurrentStatus(self):
+        current_status = self.parser.getCurrentStatus()
+        self.assertEqual(current_status, ['0x75F3BC0000', '?'])
