@@ -38,6 +38,12 @@ class LogParser:
     def getCurrentStatus(self):
         return self.currentStatus
 
+    def getCurrentStatusPosition(self):
+        return self.currentStatus[0]
+
+    def getCurrentStatusState(self):
+        return self.currentStatus[1]
+
     def __initLogsStatistics(self):
         self.logsStatistics['nontried'] = 0
         self.logsStatistics['rescued'] = 0

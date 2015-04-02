@@ -48,3 +48,11 @@ class TestLogParser(unittest.TestCase):
     def testGetCurrentStatus(self):
         current_status = self.parser.getCurrentStatus()
         self.assertEqual(current_status, ['0x75F3BC0000', '?'])
+
+    def testGetCurrentStatusPosition(self):
+        current_status_position = self.parser.getCurrentStatusPosition()
+        self.assertEqual(current_status_position, '0x75F3BC0000')
+
+    def testGetCurrentStatusState(self):
+        current_status_state = self.parser.getCurrentStatusState()
+        self.assertEqual(current_status_state, '?')
