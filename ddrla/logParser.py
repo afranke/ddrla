@@ -23,96 +23,98 @@ class LogParser:
     """
 
     def __init__(self, file):
-        self.logsDictionary = []
-        self.logsStatistics = {}
-        self.currentStatus = None
-        self.__initLogsStatistics()
-        self.__processLogParsing(file)
+        self.logs_dictionary = []
+        self.logs_statistics = {}
+        self.current_status = None
+        self.__init_logs_statistics()
+        self.__process_log_parsing(file)
 
-    def getLogsDictionnary(self):
-        return self.logsDictionary
+    def get_logs_dictionnary(self):
+        return self.logs_dictionary
 
-    def getLogsStatistics(self):
-        return self.logsStatistics
+    def get_logs_statistics(self):
+        return self.logs_statistics
 
-    def getCurrentStatus(self):
-        return self.currentStatus
+    def get_current_status(self):
+        return self.current_status
 
-    def getCurrentStatusPosition(self):
-        return self.currentStatus[0]
+    def get_current_status_position(self):
+        return self.current_status[0]
 
-    def getCurrentStatusState(self):
-        return self.currentStatus[1]
+    def get_current_status_state(self):
+        return self.current_status[1]
 
-    def getRescuedBytes(self):
-        return self.logsStatistics['rescued']
+    def get_rescued_bytes(self):
+        return self.logs_statistics['rescued']
 
-    def __initLogsStatistics(self):
-        def setLogsStatisticsToZero(state):
-            self.logsStatistics[state] = 0
+    def __init_logs_statistics(self):
+        def set_logs_statistics_to_zero(state):
+            self.logs_statistics[state] = 0
 
         states = [
             'nontried', 'rescued', 'nontrimmed', 'nonsplit', 'bad', 'total']
-        list([setLogsStatisticsToZero(x) for x in states])
-        self.logsStatistics['total'] = 0
+        list([set_logs_statistics_to_zero(x) for x in states])
+        self.logs_statistics['total'] = 0
 
-    def __processLogParsing(self, file):
+    def __process_log_parsing(self, file):
         """
-            Format each line in an array splitted by words, and manage the parse.
+            Format each line in an array splitted by words,
+            and manage the parse.
         """
         logFile = open(file, 'r')
         for line in logFile:
-            line = re.sub(' +', ' ', line);
+            line = re.sub(' +', ' ', line)
             line = line.rstrip().split(' ')
-            self.__processFileLogLine(line)
+            self.__process_file_log_line(line)
 
-    def __processFileLogLine(self, line):
-        if self.__theLineIsASegmentResult(line):
-            self.__addEntryInLogsDictionary(line)
-            self.__updateLogsStatistics(line)
-        elif self.currentStatus is None \
-          and self.__theLineIsTheCurrentStatus(line):
-            self.currentStatus = line
+    def __process_file_log_line(self, line):
+        if self.__the_line_is_a_segment_result(line):
+            self.__add_entry_in_logs_dictionary(line)
+            self.__update_logs_statistics(line)
+        elif self.current_status is None \
+                and self.__the_line_is_the_current_status(line):
+            self.current_status = line
 
-    def __theLineIsASegmentResult(self, lineRepresentation):
+    def __the_line_is_a_segment_result(self, line_representation):
         """
             Valid log lines have the pattern:
             offset <space> lenght <space> status
-            Invalid ones are comments (that start by #), and the current position
+            Invalid ones are comments (that start by #),
+            and the current position
             line (that has only two words).
         """
-        if len(lineRepresentation) != 3:
+        if len(line_representation) != 3:
             return False
-        if lineRepresentation[0] == '#':
+        if line_representation[0] == '#':
             return False
         return True
 
-    def __theLineIsTheCurrentStatus(self, lineRepresentation):
+    def __the_line_is_the_current_status(self, line_representation):
         """
             The status line has the pattern:
             offset <space> lenght
             and should only be present one in the file.
         """
-        if len(lineRepresentation) != 2:
+        if len(line_representation) != 2:
             return False
-        if lineRepresentation[0] == '#':
+        if line_representation[0] == '#':
             return False
         return True
 
-    def __addEntryInLogsDictionary(self, line):
-        self.logsDictionary.append(line)
+    def __add_entry_in_logs_dictionary(self, line):
+        self.logs_dictionary.append(line)
 
-    def __updateLogsStatistics(self, line):
+    def __update_logs_statistics(self, line):
         """
             Simple incrementation of statistic variables used for computing a
             fast report of the log content.
         """
-        symbolsToStates = {'?': 'nontried',
-                           '+': 'rescued',
-                           '*': 'nontrimmed',
-                           '-': 'bad',
-                           '/': 'nonsplit'
-                           }
-        sizeOfBlock = int(line[1], 16)
-        self.logsStatistics[symbolsToStates[line[2]]] += sizeOfBlock
-        self.logsStatistics['total'] += sizeOfBlock
+        symbols_to_states = {'?': 'nontried',
+                             '+': 'rescued',
+                             '*': 'nontrimmed',
+                             '-': 'bad',
+                             '/': 'nonsplit'
+                            }
+        size_of_block = int(line[1], 16)
+        self.logs_statistics[symbols_to_states[line[2]]] += size_of_block
+        self.logs_statistics['total'] += size_of_block

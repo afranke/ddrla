@@ -27,15 +27,15 @@ class TestLogParser(unittest.TestCase):
         testFile = join(self.package, 'data', 'ddrescue_sample.log')
         self.parser = LogParser(testFile)
 
-    def testGetLogsDictionnary(self):
-        log_dict = self.parser.getLogsDictionnary()
+    def test_get_logs_dictionnary(self):
+        log_dict = self.parser.get_logs_dictionnary()
         self.assertEqual(len(log_dict), 30204)
         map(lambda e: self.assertTrue(len(e) == 3), log_dict)
         self.assertEqual(log_dict[0], ['0x00000000', '0xC2629000', '+'])
         self.assertEqual(log_dict[-1], ['0xE8D4A51000', '0x0C365000', '?'])
 
-    def testGetLogsStatistics(self):
-        log_stat = self.parser.getLogsStatistics()
+    def test_get_logs_statistics(self):
+        log_stat = self.parser.get_logs_statistics()
         self.assertEqual(log_stat, {
           'total': 1000204886016,
           'rescued': 886719395136,
@@ -45,18 +45,18 @@ class TestLogParser(unittest.TestCase):
           'nonsplit': 1549312
         })
 
-    def testGetCurrentStatus(self):
-        current_status = self.parser.getCurrentStatus()
+    def test_get_current_status(self):
+        current_status = self.parser.get_current_status()
         self.assertEqual(current_status, ['0x75F3BC0000', '?'])
 
-    def testGetCurrentStatusPosition(self):
-        current_status_position = self.parser.getCurrentStatusPosition()
+    def test_get_current_status_position(self):
+        current_status_position = self.parser.get_current_status_position()
         self.assertEqual(current_status_position, '0x75F3BC0000')
 
-    def testGetCurrentStatusState(self):
-        current_status_state = self.parser.getCurrentStatusState()
+    def test_get_current_status_state(self):
+        current_status_state = self.parser.get_current_status_state()
         self.assertEqual(current_status_state, '?')
 
-    def testGetRescuedBytes(self):
-        rescuedBytes = self.parser.getRescuedBytes()
+    def test_get_rescued_bytes(self):
+        rescuedBytes = self.parser.get_rescued_bytes()
         self.assertEqual(rescuedBytes, 886719395136)
