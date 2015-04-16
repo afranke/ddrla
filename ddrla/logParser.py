@@ -15,16 +15,16 @@
 
 import re
 
+
 class LogParser:
     """
         Parse output logs from ddrescue command for being processed by
         the software.
     """
-    logsDictionary = []
-    logsStatistics = {}
-    currentStatus = []
 
     def __init__(self, file):
+        self.logsDictionary = []
+        self.logsStatistics = {}
         self.currentStatus = None
         self.__initLogsStatistics()
         self.__processLogParsing(file)
