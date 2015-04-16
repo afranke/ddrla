@@ -104,15 +104,12 @@ class LogParser:
             Simple incrementation of statistic variables used for computing a
             fast report of the log content.
         """
+        symbolsToStates = {'?': 'nontried',
+                           '+': 'rescued',
+                           '*': 'nontrimmed',
+                           '-': 'bad',
+                           '/': 'nonsplit'
+                           }
         sizeOfBlock = int(line[1], 16)
-        if line[2] == '?':
-            self.logsStatistics['nontried'] += sizeOfBlock
-        elif line[2] == '+':
-            self.logsStatistics['rescued'] += sizeOfBlock
-        elif line[2] == '*':
-            self.logsStatistics['nontrimmed'] += sizeOfBlock
-        elif line[2] == '/':
-            self.logsStatistics['nonsplit'] += sizeOfBlock
-        elif line[2] == '-':
-            self.logsStatistics['bad'] += sizeOfBlock
+        self.logsStatistics[symbolsToStates[line[2]]] += sizeOfBlock
         self.logsStatistics['total'] += sizeOfBlock
