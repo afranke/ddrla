@@ -44,6 +44,9 @@ class LogParser:
     def getCurrentStatusState(self):
         return self.currentStatus[1]
 
+    def getRescuedBytes(self):
+        return self.logsStatistics['rescued']
+
     def __initLogsStatistics(self):
         def setLogsStatisticsToZero(state):
             self.logsStatistics[state] = 0

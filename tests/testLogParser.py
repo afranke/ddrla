@@ -56,3 +56,7 @@ class TestLogParser(unittest.TestCase):
     def testGetCurrentStatusState(self):
         current_status_state = self.parser.getCurrentStatusState()
         self.assertEqual(current_status_state, '?')
+
+    def testGetRescuedBytes(self):
+        rescuedBytes = self.parser.getRescuedBytes()
+        self.assertEqual(rescuedBytes, 886719395136)
