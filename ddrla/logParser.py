@@ -45,11 +45,12 @@ class LogParser:
         return self.currentStatus[1]
 
     def __initLogsStatistics(self):
-        self.logsStatistics['nontried'] = 0
-        self.logsStatistics['rescued'] = 0
-        self.logsStatistics['nontrimmed'] = 0
-        self.logsStatistics['nonsplit'] = 0
-        self.logsStatistics['bad'] = 0
+        def setLogsStatisticsToZero(state):
+            self.logsStatistics[state] = 0
+
+        states = [
+            'nontried', 'rescued', 'nontrimmed', 'nonsplit', 'bad', 'total']
+        list([setLogsStatisticsToZero(x) for x in states])
         self.logsStatistics['total'] = 0
 
     def __processLogParsing(self, file):
