@@ -1,9 +1,6 @@
-#!/usr/bin/env python3
-# ddrla, a ddrescue log analyzer
+# window.py
 #
-#       ddrla
-#
-# Copyright (c) 2015, Alexandre Franke <afranke@gnome.org>
+# Copyright (C) 2015 Alexandre Franke <alexandre.franke@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,10 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from ddrla.application import Application
-import sys
+from gi.repository import GLib, Gtk
 
-if __name__ == "__main__":
-    app = Application()
-    exit_status = app.run(sys.argv)
-    sys.exit(exit_status)
+
+class Window(Gtk.ApplicationWindow):
+    def __init__(self, app):
+        Gtk.ApplicationWindow.__init__(self,
+                                       application=app,
+                                       title=GLib.get_application_name())
