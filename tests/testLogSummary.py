@@ -18,6 +18,16 @@ import unittest
 
 from ddrla.logSummary import LogSummary
 
+
 class TestLogSummary(unittest.TestCase):
-    pass
+    package = dirname(dirname(abspath(__file__)))
+    summary = None
+
+    def setUp(self):
+        testFile = join(self.package, 'data', 'ddrescue_sample.log')
+        self.summary = LogSummary(testFile)
+
+    def test_call_parser_function(self):
+        rescuedBytes = self.summary.call_parser_function('get_rescued_bytes')
+        self.assertEqual(rescuedBytes, '886.7 GB')
 

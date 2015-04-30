@@ -16,7 +16,22 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from logParser import LogParser
+import humanize
+
 
 class LogSummary:
-    pass
+    parser = None
+
+    def __init__(self, file):
+        self.parser = LogParser(file)
+
+    def call_parser_function(self, func_name):
+        """
+            Call a function of the parser that should return an amount
+            of bytes for being displayed.
+            This value will be humanized for readability purpose.
+        """
+        val = getattr(self.parser, func_name)()
+        return humanize.naturalsize(
+            val if isinstance(val, int) else int(val, 0))
 
