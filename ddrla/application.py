@@ -30,4 +30,5 @@ class Application(Gtk.Application):
     def do_activate(self):
         if not self._window:
             self._window = Window(self)
+            self._window.show_all()
         self._window.present()

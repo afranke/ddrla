@@ -16,10 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from gi.repository import GLib, Gtk
+from os.path import abspath, dirname, join
 
 
 class Window(Gtk.ApplicationWindow):
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(self,
                                        application=app,
-                                       title=GLib.get_application_name())
+                                       show_menubar=False)
+        builder = Gtk.Builder()
+        filename = join(dirname(abspath(__file__)),
+                        'resources/ui/ddrla-window.ui')
+        builder.add_from_file(filename)
+        headerbar = builder.get_object('header')
+        self.set_titlebar(headerbar)

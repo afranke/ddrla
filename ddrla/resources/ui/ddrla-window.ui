@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <!-- interface-requires gtk+ 3.10 -->
+  <object class="GtkHeaderBar" id="header">
+    <property name="visible">True</property>
+    <property name="show-close-button">True</property>
+    <child>
+      <object class="GtkButton" id="open_button">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Open</property>
+      </object>
+      <packing>
+        <property name="pack-type">start</property>
+      </packing>
+    </child>
+  </object>
+</interface>
+
