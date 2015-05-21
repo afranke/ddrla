@@ -73,3 +73,6 @@ class TestLogParser(unittest.TestCase):
         nonsplitBytes = self.parser.get_nonsplit_bytes()
         self.assertEqual(nonsplitBytes, 1549312)
 
+    def test_get_bad_bytes(self):
+        badBytes = self.parser.get_bad_bytes()
+        self.assertEqual(badBytes, 639744)
