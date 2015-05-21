@@ -60,3 +60,8 @@ class TestLogParser(unittest.TestCase):
     def test_get_rescued_bytes(self):
         rescuedBytes = self.parser.get_rescued_bytes()
         self.assertEqual(rescuedBytes, 886719395136)
+
+    def test_get_nontried_bytes(self):
+        nontriedBytes = self.parser.get_nontried_bytes()
+        self.assertEqual(nontriedBytes, 113238912320)
+

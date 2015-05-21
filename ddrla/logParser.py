@@ -47,6 +47,9 @@ class LogParser:
     def get_rescued_bytes(self):
         return self.logs_statistics['rescued']
 
+    def get_nontried_bytes(self):
+        return self.logs_statistics['nontried']
+
     def __init_logs_statistics(self):
         def set_logs_statistics_to_zero(state):
             self.logs_statistics[state] = 0
