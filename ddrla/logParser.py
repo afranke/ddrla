@@ -53,6 +53,9 @@ class LogParser:
     def get_nontrimmed_bytes(self):
         return self.logs_statistics['nontrimmed']
 
+    def get_nonsplit_bytes(self):
+        return self.logs_statistics['nonsplit']
+
     def __init_logs_statistics(self):
         def set_logs_statistics_to_zero(state):
             self.logs_statistics[state] = 0
