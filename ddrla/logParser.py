@@ -50,6 +50,9 @@ class LogParser:
     def get_nontried_bytes(self):
         return self.logs_statistics['nontried']
 
+    def get_nontrimmed_bytes(self):
+        return self.logs_statistics['nontrimmed']
+
     def __init_logs_statistics(self):
         def set_logs_statistics_to_zero(state):
             self.logs_statistics[state] = 0

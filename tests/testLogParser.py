@@ -65,3 +65,7 @@ class TestLogParser(unittest.TestCase):
         nontriedBytes = self.parser.get_nontried_bytes()
         self.assertEqual(nontriedBytes, 113238912320)
 
+    def test_get_nontrimmed_bytes(self):
+        nontrimmedBytes = self.parser.get_nontrimmed_bytes()
+        self.assertEqual(nontrimmedBytes, 244389504)
+
