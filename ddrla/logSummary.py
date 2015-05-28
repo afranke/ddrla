@@ -22,11 +22,21 @@ import humanize
 class LogSummary:
     parser = None
     display_dict = {'get_current_status_position': 'current pos',
-                    'get_rescued_bytes': 'rescued'
+                    'get_rescued_bytes': 'rescued',
+                    'get_nontried_bytes': 'non-tried',
+                    'get_nontrimmed_bytes': 'non-trimmed',
+                    'get_nonsplit_bytes': 'non-split',
+                    'get_bad_bytes': 'bad-sector'
                     }
 
     def __init__(self, file):
         self.parser = LogParser(file)
+
+    def get_summary(self):
+        """
+            Will print all informations extracted from the log file in a text block.
+        """
+        return '\n'.join([self.display(k) for k in self.display_dict])
 
     def display(self, func_name, readable=True):
         """
