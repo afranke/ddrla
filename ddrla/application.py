@@ -1,6 +1,6 @@
 # application.py
 #
-# Copyright (C) 2015 Alexandre Franke <alexandre.franke@gmail.com>
+# Copyright (c) 2015, Alexandre Franke <afranke@gnome.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

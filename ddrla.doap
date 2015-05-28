@@ -13,7 +13,7 @@
   <maintainer>
     <foaf:Person>
       <foaf:name>Alexandre Franke</foaf:name>
-      <foaf:mbox rdf:resource="mailto:alexandre.franke@gmail.com" />
+      <foaf:mbox rdf:resource="mailto:afranke@gnome.org" />
       <gnome:userid>afranke</gnome:userid>
     </foaf:Person>
   </maintainer>
