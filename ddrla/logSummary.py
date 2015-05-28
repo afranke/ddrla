@@ -21,9 +21,27 @@ import humanize
 
 class LogSummary:
     parser = None
+    display_dict = {'get_current_status_position': 'current pos',
+                    'get_rescued_bytes': 'rescued'
+                    }
 
     def __init__(self, file):
         self.parser = LogParser(file)
+
+    def display(self, func_name, readable=True):
+        """
+            Will display the total amount of something computed by the
+            logParser class. The called function has to be present in the
+            self.display_dict array for having a relation between her and
+            his label.
+            :param func_name: function of the LogParser object to call.
+            :param readable: if True, we also print the label associated.
+        """
+        result = ""
+        if readable:
+            result += self.display_dict[func_name] + ': '
+        result += self.call_parser_function(func_name)
+        return result
 
     def call_parser_function(self, func_name):
         """

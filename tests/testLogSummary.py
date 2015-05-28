@@ -31,3 +31,12 @@ class TestLogSummary(unittest.TestCase):
         rescuedBytes = self.summary.call_parser_function('get_rescued_bytes')
         self.assertEqual(rescuedBytes, '886.7 GB')
 
+    def test_display(self):
+        displayedValue = \
+            self.summary.display('get_current_status_position', True)
+        self.assertEqual(displayedValue, 'current pos: 506.6 GB')
+        displayedValue= \
+            self.summary.display('get_current_status_position', False)
+        self.assertEqual(displayedValue, '506.6 GB')
+        displayedValue = self.summary.display('get_rescued_bytes')
+
