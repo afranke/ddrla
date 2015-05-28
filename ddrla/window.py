@@ -30,3 +30,6 @@ class Window(Gtk.ApplicationWindow):
         builder.add_from_file(filename)
         headerbar = builder.get_object('header')
         self.set_titlebar(headerbar)
+
+        treeview = builder.get_object('content')
+        self.add(treeview)

@@ -14,5 +14,38 @@
       </packing>
     </child>
   </object>
+  <object class="GtkBox" id="content">
+    <property name="visible">True</property>
+    <property name="homogeneous">True</property>
+    <child>
+      <object class="GtkTreeView">
+        <property name="visible">True</property>
+        <property name="headers-visible">True</property>
+        <property name="enable-grid-lines">GTK_TREE_VIEW_GRID_LINES_BOTH</property>
+        <child>
+          <object class="GtkTreeViewColumn" id="location">
+            <property name="title">Location</property>
+            <child>
+              <object class="GtkCellRendererText" id="left-renderer" />
+              <attributes>
+                <attribute name="text">1</attribute>
+              </attributes>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkTreeViewColumn" id="state">
+            <property name="title">State</property>
+            <child>
+              <object class="GtkCellRendererText" id="right-renderer" />
+              <attributes>
+                <attribute name="text">2</attribute>
+              </attributes>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>
 
