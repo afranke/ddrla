@@ -18,22 +18,21 @@ import re
 
 class LogParser:
     """
-        Parse output logs from ddrescue command for being processed by
-        the software.
+        Parse output log from ddrescue command for processing.
     """
 
     def __init__(self, file):
-        self.logs_dictionary = []
-        self.logs_statistics = {}
+        self.log_dictionary = []
+        self.log_statistics = {}
         self.current_status = None
-        self.__init_logs_statistics()
+        self.__init_log_statistics()
         self.__process_log_parsing(file)
 
-    def get_logs_dictionnary(self):
-        return self.logs_dictionary
+    def get_log_dictionary(self):
+        return self.log_dictionary
 
-    def get_logs_statistics(self):
-        return self.logs_statistics
+    def get_log_statistics(self):
+        return self.log_statistics
 
     def get_current_status(self):
         return self.current_status
@@ -45,33 +44,33 @@ class LogParser:
         return self.current_status[1]
 
     def get_rescued_bytes(self):
-        return self.logs_statistics['rescued']
+        return self.log_statistics['rescued']
 
     def get_nontried_bytes(self):
-        return self.logs_statistics['nontried']
+        return self.log_statistics['nontried']
 
     def get_nontrimmed_bytes(self):
-        return self.logs_statistics['nontrimmed']
+        return self.log_statistics['nontrimmed']
 
     def get_nonsplit_bytes(self):
-        return self.logs_statistics['nonsplit']
+        return self.log_statistics['nonsplit']
 
     def get_bad_bytes(self):
-        return self.logs_statistics['bad']
+        return self.log_statistics['bad']
 
-    def __init_logs_statistics(self):
-        def set_logs_statistics_to_zero(state):
-            self.logs_statistics[state] = 0
+    def __init_log_statistics(self):
+        def set_log_statistics_to_zero(state):
+            self.log_statistics[state] = 0
 
         states = [
             'nontried', 'rescued', 'nontrimmed', 'nonsplit', 'bad', 'total']
-        list([set_logs_statistics_to_zero(x) for x in states])
-        self.logs_statistics['total'] = 0
+        list([set_log_statistics_to_zero(x) for x in states])
+        self.log_statistics['total'] = 0
 
     def __process_log_parsing(self, file):
         """
-            Format each line in an array splitted by words,
-            and manage the parse.
+            Format each line in an array split by words,
+            and parse.
         """
         logFile = open(file, 'r')
         for line in logFile:
@@ -81,8 +80,8 @@ class LogParser:
 
     def __process_file_log_line(self, line):
         if self.__the_line_is_a_segment_result(line):
-            self.__add_entry_in_logs_dictionary(line)
-            self.__update_logs_statistics(line)
+            self.__add_entry_in_log_dictionary(line)
+            self.__update_log_statistics(line)
         elif self.current_status is None \
                 and self.__the_line_is_the_current_status(line):
             self.current_status = line
@@ -90,7 +89,7 @@ class LogParser:
     def __the_line_is_a_segment_result(self, line_representation):
         """
             Valid log lines have the pattern:
-            offset <space> lenght <space> status
+            offset <space> length <space> status
             Invalid ones are comments (that start by #),
             and the current position
             line (that has only two words).
@@ -104,8 +103,8 @@ class LogParser:
     def __the_line_is_the_current_status(self, line_representation):
         """
             The status line has the pattern:
-            offset <space> lenght
-            and should only be present one in the file.
+            offset <space> length
+            and should only be present once in the file.
         """
         if len(line_representation) != 2:
             return False
@@ -113,10 +112,10 @@ class LogParser:
             return False
         return True
 
-    def __add_entry_in_logs_dictionary(self, line):
-        self.logs_dictionary.append(line)
+    def __add_entry_in_log_dictionary(self, line):
+        self.log_dictionary.append(line)
 
-    def __update_logs_statistics(self, line):
+    def __update_log_statistics(self, line):
         """
             Simple incrementation of statistic variables used for computing a
             fast report of the log content.
@@ -128,5 +127,5 @@ class LogParser:
                              '/': 'nonsplit'
                             }
         size_of_block = int(line[1], 16)
-        self.logs_statistics[symbols_to_states[line[2]]] += size_of_block
-        self.logs_statistics['total'] += size_of_block
+        self.log_statistics[symbols_to_states[line[2]]] += size_of_block
+        self.log_statistics['total'] += size_of_block
