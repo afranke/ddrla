@@ -26,7 +26,7 @@ class LogSummary:
                     'get_nontried_bytes': 'non-tried',
                     'get_nontrimmed_bytes': 'non-trimmed',
                     'get_nonsplit_bytes': 'non-split',
-                    'get_bad_bytes': 'bad-sector'
+                    'get_bad_bytes': 'bad-bytes'
                     }
 
     def __init__(self, file):
