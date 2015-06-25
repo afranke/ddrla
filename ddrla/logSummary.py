@@ -42,8 +42,8 @@ class LogSummary:
         """
             Will display the total amount of something computed by the
             logParser class. The called function has to be present in the
-            self.display_dict array for having a relation between her and
-            his label.
+            self.display_dict array for having a relation between it and
+            its label.
             :param func_name: function of the LogParser object to call.
             :param readable: if True, we also print the label associated.
         """
@@ -56,7 +56,7 @@ class LogSummary:
     def call_parser_function(self, func_name):
         """
             Call a function of the parser that should return an amount
-            of bytes for being displayed.
+            of bytes to be displayed.
             This value will be humanized for readability purpose.
         """
         val = getattr(self.parser, func_name)()
